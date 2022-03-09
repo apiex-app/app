@@ -6,7 +6,7 @@
           <select
             name=""
             id="methods"
-            class="bg-gray-800 border-gray-700 border outline-none p-3 w-32 rounded-tl-md rounded-bl-md text-white"
+            class="bg-gray-800 focus:bg-gray-700 cursor-pointer border-gray-700 border outline-none p-3 w-32 rounded-tl-md rounded-bl-md text-white"
           >
             <option value="get">GET</option>
             <option value="post">POST</option>
@@ -18,7 +18,7 @@
           <input
             type="url"
             id="url"
-            class="w-full text-sm outline-none box-border p-3 border-gray-700 border text-gray-300 bg-gray-800"
+            class="w-full focus:bg-gray-700 text-sm outline-none box-border p-3 border-gray-700 border text-gray-300 bg-gray-800"
             placeholder="Write request URL or Ctrl + V (Paste)"
           />
           <button
@@ -47,7 +47,7 @@
             id="code"
             cols="30"
             rows=""
-            class="w-full border border-gray-700 outline-none text-white bg-gray-800 p-3 box-border resize-none h-52"
+            class="w-full border focus:bg-gray-700 border-gray-700 outline-none text-white bg-gray-800 p-3 box-border resize-none h-52"
             placeholder="code json"
           >
 {
@@ -86,21 +86,21 @@
         var datajson = document.querySelector("#code").value;
         var respon = document.querySelector("#response");
         var responapi = document.querySelector("#apiresponse");
-
+        var textjson = JSON.parse(datajson);
         var config = {
           method: methods,
           url: urls,
           headers: {
             Accept: "application/json",
           },
-          data: JSON.stringify(datajson),
+          data: textjson,
         };
 
         axios(config)
           .then(function (response) {
             respon.innerHTML = response.status + " " + response.statusText;
             console.log(response);
-            responapi.innerHTML = JSON.stringify(response.data);
+            responapi.innerHTML = JSON.stringify(response.data, undefined, 4);
             var notification = new Notification("ApiExecute", {
               body: response.status + " " + response.statusText,
             });
