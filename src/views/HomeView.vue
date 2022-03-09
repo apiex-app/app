@@ -1,4 +1,48 @@
 <template>
+  <div
+    class="modal-overlay z-40 w-full h-screen fixed bg-overlay"
+    v-show="modal"
+  >
+    <div
+      class="modal bg-gray-800 max-w-5xl p-3 mt-20 mx-auto rounded-md text-white"
+    >
+      <h2 class="text-white text-2xl font-bold">Headers ({{ headCount }})</h2>
+      <button
+        @click="addHead"
+        class="bg-gray-800 rounded-md border mt-5 border-gray-700 text-white py-3 px-5"
+      >
+        add key
+      </button>
+      <div
+        v-for="item in head"
+        :key="item.id"
+        class="flex gap-4 mt-3 text-white"
+      >
+        <input
+          v-model="item.key"
+          placeholder="key"
+          class="bg-gray-700 border rounded-md border-gray-600 w-full p-3"
+        />
+        <input
+          v-model="item.value"
+          placeholder="value"
+          class="bg-gray-700 border rounded-md border-gray-600 w-full p-3"
+        />
+        <button
+          @click="deleteHead(index)"
+          class="bg-gray-800 border rounded-md border-gray-700 py-3 px-5"
+        >
+          Delete
+        </button>
+      </div>
+      <button
+        @click="closeModalHead"
+        class="bg-gray-800 rounded-md border mt-5 border-gray-700 text-white py-3 px-5"
+      >
+        close
+      </button>
+    </div>
+  </div>
   <div class="home bg-gray-900 w-full p-2 h-screen font-lexend">
     <div class="lg:container max-w-7xl mx-auto mt-5">
       <div class="input-box">
@@ -29,24 +73,25 @@
           </button>
         </div>
         <button
+          @click="this.modal = !this.modal"
           class="bg-gray-800 rounded-md border mt-5 border-gray-700 text-white py-3 px-5"
         >
-          Header
+          Headers ({{ headCount }})
         </button>
         <button
           class="bg-gray-800 ml-3 rounded-md border mt-5 border-gray-700 text-white py-3 px-5"
         >
-          Auth
+          Auth type : no auth (default)
         </button>
         <div
           class="bg-gray-800 mt-3 text-white border border-gray-700 w-full p-3 box-border rounded-md"
         >
           <h2>
-            Response Message :
+            Response :
             <span class="ml-3" id="response">no response</span>
           </h2>
         </div>
-        <div class="flex gap-5 mt-5">
+        <div class="lg:flex block gap-5 mt-5">
           <textarea
             name=""
             id="code"
@@ -66,7 +111,7 @@
             cols="30"
             rows=""
             readonly
-            class="w-full border border-gray-700 outline-none text-white bg-gray-800 p-3 box-border resize-none h-52"
+            class="w-full border lg:mt-0 mt-5 border-gray-700 outline-none text-white bg-gray-800 p-3 box-border resize-none h-52"
             placeholder="response api"
           ></textarea>
         </div>
@@ -83,6 +128,19 @@
   import axios from "axios";
   export default {
     name: "HomeView",
+    data() {
+      return {
+        head: [
+          {
+            id: 1,
+            key: "Content-Type",
+            value: "application/json",
+          },
+        ],
+        headCount: "",
+        modal: false,
+      };
+    },
     components: {},
     methods: {
       send: function () {
@@ -97,9 +155,7 @@
           var config = {
             method: methods,
             url: urls,
-            headers: {
-              Accept: "application/json",
-            },
+            headers: this.head.key + this.head.value,
             data: textjson,
           };
 
@@ -120,8 +176,24 @@
             });
           });
       },
+      addHead: function () {
+        this.head.push({
+          key: "",
+          value: "",
+        });
+        this.headCount = this.head.length;
+      },
+      closeModalHead: function () {
+        this.modal = !this.modal;
+        this.headCount = this.head.length;
+      },
+      deleteHead: function (index) {
+        this.head.splice(index, 1);
+        this.headCount = this.head.length;
+      },
     },
     async mounted() {
+      this.headCount = this.head.length;
       if (!("Notification" in window)) {
         alert("This browser does not support desktop notification");
       }

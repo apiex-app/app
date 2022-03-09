@@ -5,6 +5,9 @@ module.exports = {
       fontFamily: {
         lexend: "'Lexend', sans-serif",
       },
+      backgroundColor: {
+        overlay: "rgba(17,24,39,0.8)",
+      },
     },
   },
   plugins: [],
