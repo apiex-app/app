@@ -29,9 +29,14 @@
           </button>
         </div>
         <button
-          class="bg-gray-800 rounded-md border border mt-5 border-gray-700 text-white py-3 px-5"
+          class="bg-gray-800 rounded-md border mt-5 border-gray-700 text-white py-3 px-5"
         >
-          Setting Header
+          Header
+        </button>
+        <button
+          class="bg-gray-800 ml-3 rounded-md border mt-5 border-gray-700 text-white py-3 px-5"
+        >
+          Auth
         </button>
         <div
           class="bg-gray-800 mt-3 text-white border border-gray-700 w-full p-3 box-border rounded-md"
@@ -87,26 +92,27 @@
         var respon = document.querySelector("#response");
         var responapi = document.querySelector("#apiresponse");
         var textjson = JSON.parse(datajson);
-        var config = {
-          method: methods,
-          url: urls,
-          headers: {
-            Accept: "application/json",
-          },
-          data: textjson,
-        };
+
+        if (urls)
+          var config = {
+            method: methods,
+            url: urls,
+            headers: {
+              Accept: "application/json",
+            },
+            data: textjson,
+          };
 
         axios(config)
           .then(function (response) {
             respon.innerHTML = response.status + " " + response.statusText;
-            console.log(response);
+
             responapi.innerHTML = JSON.stringify(response.data, undefined, 4);
             var notification = new Notification("ApiExecute", {
               body: response.status + " " + response.statusText,
             });
           })
           .catch(function (error) {
-            console.log(error);
             respon.innerHTML = error;
             responapi.innerHTML = error;
             var notification = new Notification("ApiExecute", {
