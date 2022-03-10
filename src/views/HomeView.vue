@@ -49,6 +49,7 @@
         <div class="flex flex-warp">
           <select
             name=""
+            title="method"
             id="methods"
             class="bg-gray-800 focus:bg-gray-700 cursor-pointer border-gray-700 border outline-none p-3 w-32 rounded-tl-md rounded-bl-md text-white"
           >
@@ -58,10 +59,20 @@
             <option value="patch">PATCH</option>
             <option value="delete">DELETE</option>
             <option value="copy">COPY</option>
+            <option value="head">HEAD</option>
+            <option value="options">OPTIONS</option>
+            <option value="link">LINK</option>
+            <option value="unlink">UNLINK</option>
+            <option value="purge">PURGE</option>
+            <option value="lock">LOCK</option>
+            <option value="unlock">UNLOCK</option>
+            <option value="profind">PROFIND</option>
+            <option value="view">VIEW</option>
           </select>
           <input
             type="url"
             id="url"
+            @keyup.enter="send"
             class="w-full focus:bg-gray-700 text-sm outline-none box-border p-3 border-gray-700 border text-gray-300 bg-gray-800"
             placeholder="Write request URL or Ctrl + V (Paste)"
           />
@@ -82,6 +93,12 @@
           class="bg-gray-800 ml-3 rounded-md border mt-5 border-gray-700 text-white py-3 px-5"
         >
           Auth type : no auth (default)
+        </button>
+        <button
+          @click="addParam"
+          class="bg-gray-800 ml-3 rounded-md border mt-5 border-gray-700 text-white py-3 px-5"
+        >
+          Add Parameters
         </button>
         <div
           class="bg-gray-800 mt-3 text-white border border-gray-700 w-full p-3 box-border rounded-md"
@@ -162,7 +179,7 @@
         axios(config)
           .then(function (response) {
             respon.innerHTML = response.status + " " + response.statusText;
-
+            console.log(response.data);
             responapi.innerHTML = JSON.stringify(response.data, undefined, 4);
             var notification = new Notification("ApiExecute", {
               body: response.status + " " + response.statusText,
@@ -170,7 +187,7 @@
           })
           .catch(function (error) {
             respon.innerHTML = error;
-            responapi.innerHTML = error;
+            // responapi.innerHTML = error;
             var notification = new Notification("ApiExecute", {
               body: error,
             });
@@ -182,6 +199,10 @@
           value: "",
         });
         this.headCount = this.head.length;
+      },
+      addParam: function () {
+        document.querySelector("#url").value =
+          document.querySelector("#url").value + "?id=1";
       },
       closeModalHead: function () {
         this.modal = !this.modal;
