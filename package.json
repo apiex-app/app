@@ -2,11 +2,13 @@
   "name": "apiex",
   "version": "1.0.0",
   "description": "API Playground",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "https://github.com/apiex-app/app",
   "author": "apiex <developers@degovan.com>",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.19.2",
+    "cors": "^2.8.5",
     "express": "^4.17.3"
   }
 }
