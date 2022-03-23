@@ -1,6 +1,6 @@
-const app = require('./config/app')
-const apiRoutes = require('./routes/api')
-const responser = require('./app/utils/api-responser')
+import app from './config/app.js';
+import apiRoutes from './routes/api.js';
+import responser from './app/utils/api-responser.js';
 
 app.use('/api', apiRoutes)
 app.use('/', (req, res) => {

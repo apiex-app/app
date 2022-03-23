@@ -1,9 +1,10 @@
-const app = require('../config/app')
-const router = require('express').Router()
-const bodyParser = require('body-parser')
-const validation = require('../config/validation')
+import app from '../config/app.js';
+import { Router as router } from 'express';
+import bodyParser from 'body-parser';
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-module.exports = router
+
+
+export default router;

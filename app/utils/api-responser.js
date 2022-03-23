@@ -28,4 +28,4 @@ const validation = (res, data) => {
     });
 }
 
-module.exports = {success, error, validation};
+export default {success, error, validation};

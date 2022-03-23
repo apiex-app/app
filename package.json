@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "API Playground",
   "main": "server.js",
+  "type": "module",
   "repository": "https://github.com/apiex-app/app",
   "author": "apiex <developers@degovan.com>",
   "license": "MIT",
