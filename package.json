@@ -2,7 +2,7 @@
   "name": "apiex",
   "version": "1.0.0",
   "description": "API Playground",
-  "main": "server.js",
+  "main": "index.js",
   "type": "module",
   "repository": "https://github.com/apiex-app/app",
   "author": "apiex <developers@degovan.com>",
