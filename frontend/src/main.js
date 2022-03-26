@@ -4,6 +4,7 @@ import axios from "axios";
 import router from "./router";
 import VueProgressBar from "@aacassandra/vue3-progressbar";
 import "./assets/tailwind.css";
+
 const options = {
   color: "#bffaf3",
   failedColor: "#874b4b",
@@ -35,8 +36,6 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
-axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
 axios.interceptors.response.use(
   function (response) {
